@@ -6,5 +6,5 @@
     <string name="user_hint">User Name</string>
     <string name="password_hint">Password</string>
     <string name="button_signIn">Sign In</string>
-    <string name="title_activity_view_question">ViewQuestion</string>
+    <string name="title_activity_view_question">MCQS Quiz</string>
 </resources>
