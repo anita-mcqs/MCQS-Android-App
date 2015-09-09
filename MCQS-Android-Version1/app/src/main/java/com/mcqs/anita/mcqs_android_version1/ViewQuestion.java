@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.View;
@@ -42,6 +43,9 @@ public class ViewQuestion extends AppCompatActivity {
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
     private boolean explainViewStatus = false;
+    private ProgressBar progressBar;
+    private int progressInt=0;
+    private int progressMax=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,7 @@ public class ViewQuestion extends AppCompatActivity {
             explainText = (TextView) findViewById(R.id.textViewExplanation);
             explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
             backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
+            progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 
             String myQuestion = background+"\n"+question;
             String myExplanation = core+"\n"+explanation;
@@ -114,8 +119,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(0).isCorrectAnswer();
                     if (status == true) {
                         optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
+                      //  progressMax = progressMax+1;
+                       // progressBar.setMax(progressMax);
+
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     } else {
                         optionOne.setBackgroundColor(Color.parseColor("#F44336"));
+                      //  progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                     //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(1);
                     }
                     explanationButton.setEnabled(true);
@@ -128,8 +142,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(1).isCorrectAnswer();
                     if (status == true) {
                         optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
+                    //    progressMax = progressMax+1;
+                     //   progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
+
                     } else {
                         optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
+                      //  progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                     //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(2);
                     }
                     explanationButton.setEnabled(true);
@@ -142,9 +165,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(2).isCorrectAnswer();
                     if(status==true){
                         optionThree.setBackgroundColor(Color.parseColor("#4caf50"));
+                     //   progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionThree.setBackgroundColor(Color.parseColor("#F44336"));
+                     //   progressMax = progressMax+1;
+                     //   progressBar.setMax(progressMax);
+                    //    progressInt = progressInt-1;
+                    //    progressBar.setProgress(progressInt);
                         showCorrectAnswer(3);
                     }
                     explanationButton.setEnabled(true);
@@ -157,9 +188,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(3).isCorrectAnswer();
                     if(status==true){
                         optionFour.setBackgroundColor(Color.parseColor("#4caf50"));
+                      //  progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFour.setBackgroundColor(Color.parseColor("#F44336"));
+                      //  progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                      //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(4);
                     }
                     explanationButton.setEnabled(true);
@@ -172,9 +211,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(4).isCorrectAnswer();
                     if(status==true){
                         optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
+                    //    progressMax = progressMax+1;
+                    //    progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFive.setBackgroundColor(Color.parseColor("#F44336"));
+                     //   progressMax = progressMax+1;
+                      //  progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                      //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(5);
                     }
                     explanationButton.setEnabled(true);
@@ -185,6 +232,8 @@ public class ViewQuestion extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     parseXML();
+                      progressMax = progressMax+1;
+                     progressBar.setMax(progressMax);
                     explanationButton.setEnabled(false);
                     optionOne.setBackgroundColor(Color.parseColor("#D8D8D8"));
                     optionTwo.setBackgroundColor(Color.parseColor("#D8D8D8"));
