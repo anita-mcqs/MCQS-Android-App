@@ -1,5 +1,7 @@
 package com.mcqs.anita.mcqs_android_version1;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -7,13 +9,19 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.View;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
@@ -42,17 +50,58 @@ public class ViewQuestion extends AppCompatActivity {
     private TextView explainText;
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
+    private ScrollView parentScroll;
     private boolean explainViewStatus = false;
     private ProgressBar progressBar;
     private int progressInt=0;
     private int progressMax=0;
+    //private String filename = "sample.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_question);
+        checkFiles();//check xml files in local storage - if not download from server
         parseXML();
     }
+
+
+    private void checkFiles(){
+
+        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+        File mydir = contextWrapper.getDir("mydir", Context.MODE_PRIVATE);
+        File[]children = mydir.listFiles();//list of file within folder - if 0 download questions and put in folder
+        if(children.length>0){
+            System.out.println("not empty"+ children[0].getPath());
+
+        }
+        else{
+            System.out.println("empty folder!!");
+
+
+
+
+         //   File myInternalFile = new File(mydir, filename);
+         //   try {
+          //      FileOutputStream fos = new FileOutputStream(myInternalFile);
+          //      fos.write("test test my little test!!".getBytes());
+          //      fos.close();
+          //  } catch (IOException e) {
+          //      e.printStackTrace();
+          //  }
+        }
+
+
+     //   File path = new File("files/myXML");
+      //  if(path.exists()==false){
+      //    path.mkdirs();
+       //     System.out.println("directory is created: " + path.getPath());
+      //  }
+      //  else{
+      //      System.out.println("directory already here: " + path.getPath());
+      //  }
+    }
+
 
     private void parseXML(){
         AssetManager assetManager = getBaseContext().getAssets();
@@ -93,7 +142,38 @@ public class ViewQuestion extends AppCompatActivity {
             explainText = (TextView) findViewById(R.id.textViewExplanation);
             explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
             backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
+          //  parentScroll = (ScrollView) findViewById(R.id.scrollViewParent);
             progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+
+          /*  //scrollbar within a scroll bar
+            parentScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    findViewById(R.id.scrollViewEx).getParent().requestDisallowInterceptTouchEvent(false);
+                    findViewById(R.id.scrollView).getParent().requestDisallowInterceptTouchEvent(false);
+                    return false;
+                }
+            });
+            backgroundScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            });
+            explainScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            });
+
+*/
+
 
             String myQuestion = background+"\n"+question;
             String myExplanation = core+"\n"+explanation;
@@ -119,15 +199,15 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(0).isCorrectAnswer();
                     if (status == true) {
                         optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
-                      //  progressMax = progressMax+1;
-                       // progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
 
                         progressInt = progressInt+1;
                         progressBar.setProgress(progressInt);
                     } else {
                         optionOne.setBackgroundColor(Color.parseColor("#F44336"));
-                      //  progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                      //   progressInt = progressInt-1;
                      //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(1);
@@ -142,15 +222,15 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(1).isCorrectAnswer();
                     if (status == true) {
                         optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
-                    //    progressMax = progressMax+1;
-                     //   progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                         progressInt = progressInt+1;
                         progressBar.setProgress(progressInt);
 
                     } else {
                         optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
-                      //  progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                      //   progressInt = progressInt-1;
                      //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(2);
@@ -165,15 +245,15 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(2).isCorrectAnswer();
                     if(status==true){
                         optionThree.setBackgroundColor(Color.parseColor("#4caf50"));
-                     //   progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                         progressInt = progressInt+1;
                         progressBar.setProgress(progressInt);
                     }
                     else{
                         optionThree.setBackgroundColor(Color.parseColor("#F44336"));
-                     //   progressMax = progressMax+1;
-                     //   progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                     //    progressInt = progressInt-1;
                     //    progressBar.setProgress(progressInt);
                         showCorrectAnswer(3);
@@ -188,15 +268,15 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(3).isCorrectAnswer();
                     if(status==true){
                         optionFour.setBackgroundColor(Color.parseColor("#4caf50"));
-                      //  progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                         progressInt = progressInt+1;
                         progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFour.setBackgroundColor(Color.parseColor("#F44336"));
-                      //  progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                      //   progressInt = progressInt-1;
                       //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(4);
@@ -211,15 +291,15 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(4).isCorrectAnswer();
                     if(status==true){
                         optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
-                    //    progressMax = progressMax+1;
-                    //    progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                         progressInt = progressInt+1;
                         progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFive.setBackgroundColor(Color.parseColor("#F44336"));
-                     //   progressMax = progressMax+1;
-                      //  progressBar.setMax(progressMax);
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
                      //   progressInt = progressInt-1;
                       //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(5);
@@ -232,6 +312,21 @@ public class ViewQuestion extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     parseXML();
+
+                        //  coreText.setVisibility(View.INVISIBLE);
+                        explainText.setVisibility(View.INVISIBLE);
+                        explainScroll.setVisibility(View.INVISIBLE);
+                        //   backgroundText.setVisibility(View.VISIBLE);
+                        backgroundScroll.setVisibility(View.VISIBLE);
+                        questionText.setVisibility(View.VISIBLE);
+                        optionOne.setVisibility(View.VISIBLE);
+                        optionTwo.setVisibility(View.VISIBLE);
+                        optionThree.setVisibility(View.VISIBLE);
+                        optionFour.setVisibility(View.VISIBLE);
+                        optionFive.setVisibility(View.VISIBLE);
+                        explanationButton.setText("Explanation");
+                        explainViewStatus=false;
+
                       progressMax = progressMax+1;
                      progressBar.setMax(progressMax);
                     explanationButton.setEnabled(false);
