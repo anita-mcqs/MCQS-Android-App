@@ -5,56 +5,35 @@ package com.mcqs.anita.mcqs_android_version1;
  */
 public class Question {
 
-    private String[] optionsArray = new String[5];//5 options
-    private int correctAnswer;
-    private String correctNode;
+  //  private String[] optionsArray = new String[5];//5 options
+   // private int correctAnswer;
+ //   private String correctNode;
     private String background;
     private String question;
-
-
-
+    private QuestionOptions[] questionOptions = new QuestionOptions[5];
     private String core;
     private String explanation;
-    private int attemptId;
-    private String questionId;
+  //  private int attemptId;
+  //  private String questionId;
 
     public Question(){
         //default constructor
     }
-    public Question(String[] optionsArray, int correctAnswer, String correctNode, String background, String question, String core, String explanation, int attemptId, String questionId){
-        this.optionsArray = optionsArray;
-        this.correctAnswer = correctAnswer;
-        this.correctNode = correctNode;
+    public Question(QuestionOptions[] questionOptions, String background, String question, String core, String explanation){
+        this.questionOptions = questionOptions;
         this.background = background;
         this.question = question;
         this.core = core;
         this.explanation=explanation;
-        this.attemptId = attemptId;
-        this.questionId = questionId;
     }
-    public String[] getOptionsArray() {
-        return optionsArray;
+    public QuestionOptions[] getQuestionOptions() {
+        return questionOptions;
     }
 
-    public void setOptionsArray(String[] optionsArray) {
-        this.optionsArray = optionsArray;
+    public void setQuestionOptions(QuestionOptions[] questionOptions) {
+        this.questionOptions = questionOptions;
     }
 
-    public int getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswer = correctAnswer;
-    }
-
-    public String getCorrectNode() {
-        return correctNode;
-    }
-
-    public void setCorrectNode(String correctNode) {
-        this.correctNode = correctNode;
-    }
 
     public String getBackground() {
         return background;
@@ -86,21 +65,5 @@ public class Question {
 
     public void setExplanation(String explanation) {
         this.explanation = explanation;
-    }
-
-    public int getAttemptId() {
-        return attemptId;
-    }
-
-    public void setAttemptId(int attemptId) {
-        this.attemptId = attemptId;
-    }
-
-    public String getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(String questionId) {
-        this.questionId = questionId;
     }
 }

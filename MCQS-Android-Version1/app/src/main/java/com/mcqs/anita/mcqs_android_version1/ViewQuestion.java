@@ -1,22 +1,40 @@
 package com.mcqs.anita.mcqs_android_version1;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.view.View;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 import java.io.InputStream;
@@ -27,6 +45,7 @@ public class ViewQuestion extends AppCompatActivity {
 
    // private static String questionURL = "http://192.168.1.7:2010/api/fullQuestion";
    // private Question myQuestion;
+    private ArrayList<Question> questionList = new ArrayList<Question>();
     private TextView backgroundText;
     private TextView questionText;
     private Button optionOne;
@@ -41,15 +60,199 @@ public class ViewQuestion extends AppCompatActivity {
     private TextView explainText;
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
+    private ScrollView parentScroll;
     private boolean explainViewStatus = false;
+    private ProgressBar progressBar;
+    private int progressInt=0;
+    private int progressMax=0;
+    private String myJSONString = "";
+    //private String filename = "sample.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_question);
+        checkFiles();//if there don't copy file
+        myJSONString =  readFromFile();
+        parseJSONFile(myJSONString);
         parseXML();
     }
 
+
+
+private void parseJSONFile(String myJSONString){
+    //convert string to JSON Array
+
+    try {
+        JSONObject myJSONObject = new JSONObject(myJSONString);
+        //get JSONarray from JSONObject - to do - multiple questions
+        System.out.println("object" + myJSONObject.toString());
+        //sample - One Question
+        Question myQuestion = new Question();
+        ArrayList<QuestionOptions> myOptions = new ArrayList<QuestionOptions>();
+
+        JSONArray myJSONOptionsArray = myJSONObject.getJSONArray("options");
+        if(myJSONOptionsArray==null){
+            System.out.println("null array");
+        }
+        System.out.println(myJSONOptionsArray.toString());
+
+        for(int i=0; i<myJSONOptionsArray.length();i++){
+            System.out.println("options " + myJSONOptionsArray.get(i));
+            //QuestionOptions myOption = new QuestionOptions();
+
+
+            //myOptions.add(myOption);
+        }
+
+
+
+
+
+
+
+    }
+     catch(JSONException e){
+        e.printStackTrace();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+    private String readFromFile() {
+        String ret = "";
+        String toPath = "/data/data/" + getPackageName();
+        try {
+            InputStream inputStream = openFileInput("myJSON.txt");
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+        return ret;
+    }
+
+
+
+
+
+    private void checkFiles() {
+        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
+        AssetManager assetMgr = getAssets();
+        InputStream in = null;
+        OutputStream out = null;
+        String toPath = "/data/data/" + getPackageName()+"/files/";
+        Boolean fileThere = fileExistance("myJSON.txt");
+        if(fileThere==true)
+        {
+           // System.out.println("not empty");
+        }
+        else
+        {
+          // System.out.print("empty folder");
+            copyAssetFolder(assetMgr, "json", toPath);
+        }
+
+    }
+
+
+
+
+
+    private boolean fileExistance(String fname){
+        File file = getBaseContext().getFileStreamPath(fname);
+        return file.exists();
+    }
+
+
+
+
+
+
+    private static boolean copyAssetFolder(AssetManager assetManager,
+                                           String fromAssetPath, String toPath) {
+        try {
+            String[] files = assetManager.list(fromAssetPath);
+            new File(toPath).mkdirs();
+            boolean res = true;
+            for (String file : files)
+                if (file.contains("."))
+                    res &= copyAsset(assetManager,
+                            fromAssetPath + "/" + file,
+                            toPath + "/" + file);
+                else
+                    res &= copyAssetFolder(assetManager,
+                            fromAssetPath + "/" + file,
+                            toPath + "/" + file);
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+
+    private static boolean copyAsset(AssetManager assetManager,
+                                     String fromAssetPath, String toPath) {
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            String[] fileNames = assetManager.list(fromAssetPath);
+            in = assetManager.open(fromAssetPath);
+            new File(toPath).createNewFile();
+            out = new FileOutputStream(toPath);
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
+
+
+
+
+    //to delete when JSON sort out!!
     private void parseXML(){
         AssetManager assetManager = getBaseContext().getAssets();
         try{
@@ -89,6 +292,38 @@ public class ViewQuestion extends AppCompatActivity {
             explainText = (TextView) findViewById(R.id.textViewExplanation);
             explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
             backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
+          //  parentScroll = (ScrollView) findViewById(R.id.scrollViewParent);
+           //progressBar = (ProgressBar) findViewById(R.id.progressBar2);
+
+          /*  //scrollbar within a scroll bar
+            parentScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    findViewById(R.id.scrollViewEx).getParent().requestDisallowInterceptTouchEvent(false);
+                    findViewById(R.id.scrollView).getParent().requestDisallowInterceptTouchEvent(false);
+                    return false;
+                }
+            });
+            backgroundScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            });
+            explainScroll.setOnTouchListener(new View.OnTouchListener(){
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event){
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    return false;
+                }
+            });
+
+*/
+
 
             String myQuestion = background+"\n"+question;
             String myExplanation = core+"\n"+explanation;
@@ -114,8 +349,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(0).isCorrectAnswer();
                     if (status == true) {
                         optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     } else {
                         optionOne.setBackgroundColor(Color.parseColor("#F44336"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                     //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(1);
                     }
                     explanationButton.setEnabled(true);
@@ -128,8 +372,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(1).isCorrectAnswer();
                     if (status == true) {
                         optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
+
                     } else {
                         optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                     //   progressBar.setProgress(progressInt);
                         showCorrectAnswer(2);
                     }
                     explanationButton.setEnabled(true);
@@ -142,9 +395,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(2).isCorrectAnswer();
                     if(status==true){
                         optionThree.setBackgroundColor(Color.parseColor("#4caf50"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionThree.setBackgroundColor(Color.parseColor("#F44336"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                    //    progressInt = progressInt-1;
+                    //    progressBar.setProgress(progressInt);
                         showCorrectAnswer(3);
                     }
                     explanationButton.setEnabled(true);
@@ -157,9 +418,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(3).isCorrectAnswer();
                     if(status==true){
                         optionFour.setBackgroundColor(Color.parseColor("#4caf50"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFour.setBackgroundColor(Color.parseColor("#F44336"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                      //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(4);
                     }
                     explanationButton.setEnabled(true);
@@ -172,9 +441,17 @@ public class ViewQuestion extends AppCompatActivity {
                     boolean status = myOptions.get(4).isCorrectAnswer();
                     if(status==true){
                         optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                        progressInt = progressInt+1;
+                        progressBar.setProgress(progressInt);
                     }
                     else{
                         optionFive.setBackgroundColor(Color.parseColor("#F44336"));
+                        progressMax = progressMax+1;
+                        progressBar.setMax(progressMax);
+                     //   progressInt = progressInt-1;
+                      //  progressBar.setProgress(progressInt);
                         showCorrectAnswer(5);
                     }
                     explanationButton.setEnabled(true);
@@ -185,6 +462,23 @@ public class ViewQuestion extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     parseXML();
+
+                        //  coreText.setVisibility(View.INVISIBLE);
+                        explainText.setVisibility(View.INVISIBLE);
+                        explainScroll.setVisibility(View.INVISIBLE);
+                        //   backgroundText.setVisibility(View.VISIBLE);
+                        backgroundScroll.setVisibility(View.VISIBLE);
+                        questionText.setVisibility(View.VISIBLE);
+                        optionOne.setVisibility(View.VISIBLE);
+                        optionTwo.setVisibility(View.VISIBLE);
+                        optionThree.setVisibility(View.VISIBLE);
+                        optionFour.setVisibility(View.VISIBLE);
+                        optionFive.setVisibility(View.VISIBLE);
+                        explanationButton.setText("Explanation");
+                        explainViewStatus=false;
+
+                      progressMax = progressMax+1;
+                     progressBar.setMax(progressMax);
                     explanationButton.setEnabled(false);
                     optionOne.setBackgroundColor(Color.parseColor("#D8D8D8"));
                     optionTwo.setBackgroundColor(Color.parseColor("#D8D8D8"));
