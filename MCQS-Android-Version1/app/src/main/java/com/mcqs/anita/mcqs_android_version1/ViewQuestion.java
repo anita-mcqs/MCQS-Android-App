@@ -65,12 +65,14 @@ public class ViewQuestion extends AppCompatActivity {
     private ArrayList<QuestionOptions> myOptions;
     private Button nextButton;
     private Button explanationButton;
+    private Button imageButton;
+    private Button questionButton;
     private TextView coreText;
     private TextView explainText;
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
     private ScrollView parentScroll;
-    private String viewStatus = "question";
+    private Boolean viewStatus = false;
     private ProgressBar progressBar;
     private int progressInt=0;
     private int progressMax=0;
@@ -83,18 +85,9 @@ public class ViewQuestion extends AppCompatActivity {
         setContentView(R.layout.activity_view_question);
         checkFiles();//if there don't copy file
         myJSONString =  readFromFile();
-
         parseJSONFile(myJSONString);
-       // System.out.println("question array: " + questionList.size());
-       // for(int i=0; i<questionList.size(); i++){
-        //    System.out.println("Question: " + questionList.get(i).getQuestion() + " Image Path " + questionList.get(i).getImagePath());
-         //   System.out.println("Correct Answer: " + questionList.get(i).getQuestionOptions()[0].getAnswer());
-       // }
         displayQuestions();
-        //parseXML();
     }
-
-
 
 
 
@@ -105,10 +98,6 @@ public class ViewQuestion extends AppCompatActivity {
 
         JsonParser jsonParser = new JsonParser();
         jsonArraySize = jsonParser.parse(myJSONString).getAsJsonArray().size();
-       // System.out.println("length " + jsonArraySize);
-
-
-
 
 
         //images
@@ -122,13 +111,9 @@ public class ViewQuestion extends AppCompatActivity {
                 File file = files[i];
               //  System.out.println("file " + file);
             }
-          //  System.out.println("count: " + count);
         } else {
             System.out.println("null images folder????");
         }
-
-
-
 
 
 
@@ -145,14 +130,8 @@ public class ViewQuestion extends AppCompatActivity {
             File file = files[i];
 
             String path = file.getPath();
-          //  System.out.println("file JSON " + path);
             myQuestion.setImagePath(path);
-
-
-
             myQuestion.setIndex(i);
-
-            // System.out.println("Index: " + i +" Length: "+length+ " Json: " + jsonParser.parse(myJSONString).getAsJsonArray().get(i).toString());
 
 
             //correct answer
@@ -163,22 +142,17 @@ public class ViewQuestion extends AppCompatActivity {
             System.out.println("correct: " + correctAnswer);
 
             QuestionOptions corr = new QuestionOptions(correctAnswer, true);
-           // System.out.println("string: " + test);
             questionOptions[0] = corr;
 
             //incorrect answers
             int length = jsonParser.parse(myJSONString)
                     .getAsJsonArray().get(i).getAsJsonObject().getAsJsonArray("options").get(0).getAsJsonObject().getAsJsonArray("incorrectAnswers").get(0)
                     .getAsJsonObject().getAsJsonArray("incorrectAnswer").size();
-           // System.out.println("length: " + length);
+
             for(int j=0; j<length; j++){
-
-
                 String myIncorrectOption = jsonParser.parse(myJSONString)
                         .getAsJsonArray().get(i).getAsJsonObject().getAsJsonArray("options").get(0).getAsJsonObject().getAsJsonArray("incorrectAnswers").get(0)
                         .getAsJsonObject().getAsJsonArray("incorrectAnswer").get(j).getAsJsonObject().get("_").getAsString();
-
-
                 QuestionOptions incorr = new QuestionOptions(myIncorrectOption, false);
                 questionOptions[j+1] = incorr;
             }
@@ -199,7 +173,6 @@ public class ViewQuestion extends AppCompatActivity {
             question = jsonParser.parse(myJSONString)
                     .getAsJsonArray().get(i).getAsJsonObject().getAsJsonArray("question").get(0).getAsString();
             myQuestion.setQuestion(question);
-          //  System.out.println("q " + question);
 
             //background
             background = jsonParser.parse(myJSONString)
@@ -210,10 +183,6 @@ public class ViewQuestion extends AppCompatActivity {
 
         }
     }
-
-
-
-
 
 
 
@@ -372,6 +341,8 @@ private void displayQuestions(){
     optionFive = (Button) findViewById(R.id.buttonOption5);
     nextButton = (Button) findViewById(R.id.buttonNext);
     explanationButton = (Button) findViewById(R.id.buttonExplanation);
+    imageButton = (Button) findViewById(R.id.buttonImage);
+    questionButton = (Button) findViewById(R.id.buttonQuestion);
     coreText = (TextView) findViewById(R.id.textViewCore);
     explainText = (TextView) findViewById(R.id.textViewExplanation);
     explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
@@ -379,43 +350,12 @@ private void displayQuestions(){
     questionImage = (ImageView) findViewById(R.id.imageView);
 
 
-    //  parentScroll = (ScrollView) findViewById(R.id.scrollViewParent);
-    //progressBar = (ProgressBar) findViewById(R.id.progressBar2);
 
-          /*  //scrollbar within a scroll bar
-            parentScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    findViewById(R.id.scrollViewEx).getParent().requestDisallowInterceptTouchEvent(false);
-                    findViewById(R.id.scrollView).getParent().requestDisallowInterceptTouchEvent(false);
-                    return false;
-                }
-            });
-            backgroundScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    return false;
-                }
-            });
-            explainScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    return false;
-                }
-            });
-
-*/
     File file = new File(displayImagePath);
-    //  URI uri = Uri.fromFile(file);
     questionImage.setImageURI(Uri.fromFile(file));
     int height = questionImage.getMaxHeight();
     int width = questionImage.getMaxWidth();
-    System.out.println("Image Height " + height + " Width " + width);
+   // System.out.println("Image Height " + height + " Width " + width);
 
     String myQuestion = displayBackgroundString+"\n"+displayQuestionString;
     String myExplanation = displayCoreString+"\n"+displayExplanationString;
@@ -439,23 +379,14 @@ private void displayQuestions(){
             boolean status = myOptions.get(0).isCorrectAnswer();
             if (status == true) {
                 optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
-                // progressMax = progressMax+1;
-                //  progressBar.setMax(progressMax);
-
-                //   progressInt = progressInt+1;
-                //   progressBar.setProgress(progressInt);
             } else {
                 optionOne.setBackgroundColor(Color.parseColor("#F44336"));
-                //   progressMax = progressMax+1;
-                //  progressBar.setMax(progressMax);
-                //   progressInt = progressInt-1;
-                //   progressBar.setProgress(progressInt);
                 showCorrectAnswer(1);
             }
-         //   explanationButton.setEnabled(true);
-            viewStatus = "explanation";
-            explanationButton.setText("Explanation");
             disableOptionButtons();
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.VISIBLE);
         }
     });
     optionTwo.setOnClickListener(new OnClickListener() {
@@ -464,23 +395,15 @@ private void displayQuestions(){
             boolean status = myOptions.get(1).isCorrectAnswer();
             if (status == true) {
                 optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
-              //  progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-              //  progressInt = progressInt+1;
-              //  progressBar.setProgress(progressInt);
 
             } else {
                 optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
-              //  progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-                //   progressInt = progressInt-1;
-                //   progressBar.setProgress(progressInt);
                 showCorrectAnswer(2);
             }
-         //   explanationButton.setEnabled(true);
-            viewStatus = "explanation";
-            explanationButton.setText("Explanation");
             disableOptionButtons();
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.VISIBLE);
         }
     });
 
@@ -490,23 +413,15 @@ private void displayQuestions(){
             boolean status = myOptions.get(2).isCorrectAnswer();
             if(status==true){
                 optionThree.setBackgroundColor(Color.parseColor("#4caf50"));
-               // progressMax = progressMax+1;
-             //   progressBar.setMax(progressMax);
-              //  progressInt = progressInt+1;
-              //  progressBar.setProgress(progressInt);
             }
             else{
                 optionThree.setBackgroundColor(Color.parseColor("#F44336"));
-               // progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-                //    progressInt = progressInt-1;
-                //    progressBar.setProgress(progressInt);
                 showCorrectAnswer(3);
             }
-           // explanationButton.setEnabled(true);
-            viewStatus = "explanation";
-            explanationButton.setText("Explanation");
             disableOptionButtons();
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.VISIBLE);
         }
     });
 
@@ -516,23 +431,15 @@ private void displayQuestions(){
             boolean status = myOptions.get(3).isCorrectAnswer();
             if(status==true){
                 optionFour.setBackgroundColor(Color.parseColor("#4caf50"));
-             //   progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-             //   progressInt = progressInt+1;
-              //  progressBar.setProgress(progressInt);
             }
             else{
                 optionFour.setBackgroundColor(Color.parseColor("#F44336"));
-             //   progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-                //   progressInt = progressInt-1;
-                //  progressBar.setProgress(progressInt);
                 showCorrectAnswer(4);
             }
-          //  explanationButton.setEnabled(true);
-            viewStatus = "explanation";
-            explanationButton.setText("Explanation");
             disableOptionButtons();
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.VISIBLE);
         }
     });
     optionFive.setOnClickListener(new OnClickListener(){
@@ -541,23 +448,15 @@ private void displayQuestions(){
             boolean status = myOptions.get(4).isCorrectAnswer();
             if(status==true){
                 optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
-              //  progressMax = progressMax+1;
-              //  progressBar.setMax(progressMax);
-              //  progressInt = progressInt+1;
-              //  progressBar.setProgress(progressInt);
             }
             else{
                 optionFive.setBackgroundColor(Color.parseColor("#F44336"));
-             //   progressMax = progressMax+1;
-            //    progressBar.setMax(progressMax);
-                //   progressInt = progressInt-1;
-                //  progressBar.setProgress(progressInt);
                 showCorrectAnswer(5);
             }
-           // explanationButton.setEnabled(true);
-            viewStatus = "explanation";
-            explanationButton.setText("Explanation");
             disableOptionButtons();
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.VISIBLE);
         }
     });
 
@@ -565,12 +464,9 @@ private void displayQuestions(){
         @Override
         public void onClick(View view) {
             displayQuestions();
-          //  parseXML();
 
-            //  coreText.setVisibility(View.INVISIBLE);
             explainText.setVisibility(View.INVISIBLE);
             explainScroll.setVisibility(View.INVISIBLE);
-            //   backgroundText.setVisibility(View.VISIBLE);
             backgroundScroll.setVisibility(View.VISIBLE);
             questionText.setVisibility(View.VISIBLE);
             optionOne.setVisibility(View.VISIBLE);
@@ -578,15 +474,13 @@ private void displayQuestions(){
             optionThree.setVisibility(View.VISIBLE);
             optionFour.setVisibility(View.VISIBLE);
             optionFive.setVisibility(View.VISIBLE);
-           questionImage.setVisibility(View.INVISIBLE);
-            explanationButton.setText("Image");
-            viewStatus = "question";
-          //  explainViewStatus=false;
-           // imageViewStatus=false;
+            questionImage.setVisibility(View.INVISIBLE);
 
-          //  progressMax = progressMax+1;
-           // progressBar.setMax(progressMax);
-           // explanationButton.setEnabled(false);
+            questionButton.setVisibility(View.INVISIBLE);
+            imageButton.setVisibility(View.VISIBLE);
+            explanationButton.setVisibility(View.INVISIBLE);
+            viewStatus = false;
+
             optionOne.setBackgroundColor(Color.parseColor("#D8D8D8"));
             optionTwo.setBackgroundColor(Color.parseColor("#D8D8D8"));
             optionThree.setBackgroundColor(Color.parseColor("#D8D8D8"));
@@ -596,36 +490,39 @@ private void displayQuestions(){
     });
 
 
-
-
-    explanationButton.setOnClickListener(new OnClickListener() {
+    imageButton.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
-            Boolean status= true;
 
-            if(viewStatus=="question"){
+            explainText.setVisibility(View.INVISIBLE);
+            explainScroll.setVisibility(View.INVISIBLE);
+            backgroundScroll.setVisibility(View.INVISIBLE);
+            questionText.setVisibility(View.INVISIBLE);
+            optionOne.setVisibility(View.INVISIBLE);
+            optionTwo.setVisibility(View.INVISIBLE);
+            optionThree.setVisibility(View.INVISIBLE);
+            optionFour.setVisibility(View.INVISIBLE);
+            optionFive.setVisibility(View.INVISIBLE);
+            questionImage.setVisibility(View.VISIBLE);
+
+
+            explanationButton.setVisibility(View.INVISIBLE);
+            questionButton.setVisibility(View.VISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+
+
+
+
+        }
+    });
+
+    questionButton.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+            if(viewStatus==false) {
                 explainText.setVisibility(View.INVISIBLE);
                 explainScroll.setVisibility(View.INVISIBLE);
-                // questionImage.setVisibility(View.INVISIBLE);
-                questionImage.setVisibility(View.VISIBLE);
-                //   backgroundText.setVisibility(View.INVISIBLE);
-                backgroundScroll.setVisibility(View.INVISIBLE);
-                questionText.setVisibility(View.INVISIBLE);
-                optionOne.setVisibility(View.INVISIBLE);
-                optionTwo.setVisibility(View.INVISIBLE);
-                optionThree.setVisibility(View.INVISIBLE);
-                optionFour.setVisibility(View.INVISIBLE);
-                optionFive.setVisibility(View.INVISIBLE);
-                explanationButton.setText("Question");
-                viewStatus = "image";
-              //  status = false;
-            }
-            if(status==false){
-                explainText.setVisibility(View.INVISIBLE);
-                explainScroll.setVisibility(View.INVISIBLE);
-              //  questionImage.setVisibility(View.VISIBLE);
-                questionImage.setVisibility(View.INVISIBLE);
-                //   backgroundText.setVisibility(View.INVISIBLE);
                 backgroundScroll.setVisibility(View.VISIBLE);
                 questionText.setVisibility(View.VISIBLE);
                 optionOne.setVisibility(View.VISIBLE);
@@ -633,15 +530,53 @@ private void displayQuestions(){
                 optionThree.setVisibility(View.VISIBLE);
                 optionFour.setVisibility(View.VISIBLE);
                 optionFive.setVisibility(View.VISIBLE);
-                explanationButton.setText("Image");
-                //viewStatus = "explanation";
+                questionImage.setVisibility(View.INVISIBLE);
+
+                questionButton.setVisibility(View.INVISIBLE);
+                imageButton.setVisibility(View.VISIBLE);
+                explanationButton.setVisibility(View.INVISIBLE);
+            }
+            if(viewStatus==true){
+                explainText.setVisibility(View.INVISIBLE);
+                explainScroll.setVisibility(View.INVISIBLE);
+                backgroundScroll.setVisibility(View.VISIBLE);
+                questionText.setVisibility(View.VISIBLE);
+                optionOne.setVisibility(View.VISIBLE);
+                optionTwo.setVisibility(View.VISIBLE);
+                optionThree.setVisibility(View.VISIBLE);
+                optionFour.setVisibility(View.VISIBLE);
+                optionFive.setVisibility(View.VISIBLE);
+                questionImage.setVisibility(View.INVISIBLE);
+
+                questionButton.setVisibility(View.INVISIBLE);
+                imageButton.setVisibility(View.INVISIBLE);
+                explanationButton.setVisibility(View.VISIBLE);
             }
 
+        }
+    });
 
 
 
+    explanationButton.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+            explainText.setVisibility(View.VISIBLE);
+            explainScroll.setVisibility(View.VISIBLE);
+            backgroundScroll.setVisibility(View.INVISIBLE);
+            questionText.setVisibility(View.INVISIBLE);
+            optionOne.setVisibility(View.INVISIBLE);
+            optionTwo.setVisibility(View.INVISIBLE);
+            optionThree.setVisibility(View.INVISIBLE);
+            optionFour.setVisibility(View.INVISIBLE);
+            optionFive.setVisibility(View.INVISIBLE);
+            questionImage.setVisibility(View.INVISIBLE);
 
+            questionButton.setVisibility(View.VISIBLE);
+            imageButton.setVisibility(View.INVISIBLE);
+            explanationButton.setVisibility(View.INVISIBLE);
+            viewStatus = true;
 
 
 
@@ -649,42 +584,7 @@ private void displayQuestions(){
     });
 }
 
-private void questionView(){
 
-System.out.println("Unanswered Question");
-    explainText.setVisibility(View.INVISIBLE);
-    explainScroll.setVisibility(View.INVISIBLE);
-    //   backgroundText.setVisibility(View.VISIBLE);
-    backgroundScroll.setVisibility(View.VISIBLE);
-     questionImage.setVisibility(View.INVISIBLE);
-    //  questionImage.setVisibility(View.VISIBLE);
-    questionText.setVisibility(View.VISIBLE);
-    optionOne.setVisibility(View.VISIBLE);
-    optionTwo.setVisibility(View.VISIBLE);
-    optionThree.setVisibility(View.VISIBLE);
-    optionFour.setVisibility(View.VISIBLE);
-    optionFive.setVisibility(View.VISIBLE);
-    viewStatus = "question";
-    explanationButton.setText("Image");
-}
-
-    private void questionAnsweredView(){
-
-        System.out.println("Answered Question");
-        explainText.setVisibility(View.INVISIBLE);
-        explainScroll.setVisibility(View.INVISIBLE);
-        //   backgroundText.setVisibility(View.VISIBLE);
-        backgroundScroll.setVisibility(View.VISIBLE);
-        questionImage.setVisibility(View.INVISIBLE);
-        //  questionImage.setVisibility(View.VISIBLE);
-        questionText.setVisibility(View.VISIBLE);
-        optionOne.setVisibility(View.VISIBLE);
-        optionTwo.setVisibility(View.VISIBLE);
-        optionThree.setVisibility(View.VISIBLE);
-        optionFour.setVisibility(View.VISIBLE);
-        optionFive.setVisibility(View.VISIBLE);
-
-    }
 
 
 /*
