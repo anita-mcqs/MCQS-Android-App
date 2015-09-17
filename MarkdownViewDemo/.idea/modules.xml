@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MarkdownViewDemo.iml" filepath="$PROJECT_DIR$/MarkdownViewDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/markdownView/markdownView.iml" filepath="$PROJECT_DIR$/markdownView/markdownView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/markdownViewDemo/markdownViewDemo.iml" filepath="$PROJECT_DIR$/markdownViewDemo/markdownViewDemo.iml" />
+    </modules>
+  </component>
+</project>

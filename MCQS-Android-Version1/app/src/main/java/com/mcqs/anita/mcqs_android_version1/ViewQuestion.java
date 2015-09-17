@@ -10,6 +10,7 @@ import java.net.URI;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import com.commonsware.cwac.anddown.AndDown;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -141,6 +143,7 @@ public class ViewQuestion extends AppCompatActivity {
 
             System.out.println("correct: " + correctAnswer);
 
+
             QuestionOptions corr = new QuestionOptions(correctAnswer, true);
             questionOptions[0] = corr;
 
@@ -179,6 +182,7 @@ public class ViewQuestion extends AppCompatActivity {
                     .getAsJsonArray().get(i).getAsJsonObject().getAsJsonArray("background").get(0).getAsString();
             myQuestion.setBackground(background);
 
+
             questionList.add(myQuestion);
 
         }
@@ -212,6 +216,28 @@ public class ViewQuestion extends AppCompatActivity {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
         return ret;
+    }
+
+
+
+    private CharSequence convertMarkdown(String toConvert){
+
+        //String toReturn="";
+          //  Bypass bypass = new Bypass(ViewQuestion.this);
+
+        AndDown converter=new AndDown();
+        String con = converter.markdownToHtml(toConvert);
+        CharSequence c = Html.fromHtml(con);
+       // AndDown converter=new AndDown();
+
+       // String converted = converter.markdownToHtml(toConvert);
+        //CharSequence d = Html.fromHtml(toConvert);
+        //CharSequence c = bypass.markdownToSpannable(d.toString());
+        //CharSequence e = Html.fromHtml(c.toString());
+
+       // toReturn = c.toString();
+
+        return c;
     }
 
 
@@ -363,10 +389,24 @@ private void displayQuestions(){
     myQuestion.replaceAll("\\s+", System.getProperty("line.separator"));
     myExplanation.replaceAll("\\s+", "\n");
     myExplanation.replaceAll("\\s+", System.getProperty("line.separator"));
-    backgroundText.setText(displayBackgroundString);
-    questionText.setText(myQuestion);
-    coreText.setText(displayCoreString);
-    explainText.setText(myExplanation);
+
+    CharSequence back = convertMarkdown(displayBackgroundString);
+    backgroundText.setText(back);
+
+    CharSequence q = convertMarkdown(myQuestion);
+    questionText.setText(q);
+
+
+    CharSequence core = convertMarkdown(displayCoreString);
+    coreText.setText(core);
+
+
+    CharSequence ex = convertMarkdown(myExplanation);
+    explainText.setText(ex);
+
+
+
+
     optionOne.setText(myOptions.get(0).getAnswer());
     optionTwo.setText(myOptions.get(1).getAnswer());
     optionThree.setText(myOptions.get(2).getAnswer());

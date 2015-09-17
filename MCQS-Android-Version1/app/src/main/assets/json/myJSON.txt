@@ -57,7 +57,7 @@
       }
     ],
     "background": [
-      "William, age 30, came to see the doctor because he wanted a \ndate.  He had never had a date in his life and was very \nfrustrated by his inability to meet and successfully ask a  \nwoman on a date.  <p> During the doctor's evaluation William said he was \nat a loss as to what his problem was.  His mother, who was in \nthe room at the time, had her own opinions regarding William's problem.  \nWilliam, she said, misreads situations by misinterpreting facial signals by his prospective dates. <p>\n  <i>\"He has always done so.  Sometimes he comes on too strong, sometimes he is \nwithdrawn when another person is interested.\n  He doesn't read \nthe tone of my voice correctly either.  I can be really mad at him \nand he doesn't take me seriously.  Or he can think I'm mad when \nI'm not,\" </i>she says. \n      <br>The physician is concerned that an area of William's brain is most likely to be malfunctioning, thereby causing his social problems by causing William to misinterpret facial signals by his prospective dates. He decides to investigate further by doing a more detailed scan on his brain, which shows an abnormal part of the brain, as shown in yellow. \n\t <br><br>Please click image button below to view image<br/>He also had a SPECT scan, which confirmed that this  particular part of his  brain, as highlighted in yellow, in the location as suspected by the physician, was abnormal. <p>"
+      "William, age 30, came to see the doctor because he wanted a \ndate.  He had never had a date in his life and was very \nfrustrated by his inability to meet and successfully ask a  \nwoman on a date.  <p> During the doctor's evaluation William said he was \nat a loss as to what his problem was.  His mother, who was in \nthe room at the time, had her own opinions regarding William's problem.  \nWilliam, she said, misreads situations by misinterpreting facial signals by his prospective dates. <p>\n  <i>\"He has always done so.  Sometimes he comes on too strong, sometimes he is \nwithdrawn when another person is interested.\n  He doesn't read \nthe tone of my voice correctly either.  I can be really mad at him \nand he doesn't take me seriously.  Or he can think I'm mad when \nI'm not,\" </i>she says. \n      <br>The physician is concerned that an area of William's brain is most likely to be malfunctioning, thereby causing his social problems by causing William to misinterpret facial signals by his prospective dates. He decides to investigate further by doing a more detailed scan on his brain, which shows an abnormal part of the brain, as shown in yellow. \n\t <br><br>    Please click image button below to view image<br/>He also had a SPECT scan, which confirmed that this  particular part of his  brain, as highlighted in yellow, in the location as suspected by the physician, was abnormal. <p>"
     ],
     "question": [
       "Which <b>exact  part </b>of the brain is likely to have shown up as abnormal on the  <i>SPECT scan?  </i>"
@@ -130,13 +130,13 @@
       }
     ],
     "background": [
-      "A 21-year-old Caucasian male presents to your office with **wheezing and rhinitis**. \nLaboratory results show **peripheral eosinophilia** and **antibodies against neutrophil myeloperoxidase**."
+      "#Test.# *** <br>   >A 21-year-old\n--- Caucasian male presents\n* * * to your office with **wheezing and rhinitis**.<br>    Laboratory results show **peripheral eosinophilia** and **antibodies against neutrophil myeloperoxidase**."
     ],
     "question": [
       "What is the most likely diagnosis?"
     ],
     "core": [
-      "`Churg-Strauss syndrome` is a **small vessel vasculitis **without immune complexes associated with asthma, **eosinophilia**, and **antibodies against neutrophil myeloperoxidase**"
+      "`Churg-Strauss syndrome` is a **small vessel vasculitis** without immune complexes associated with asthma, **eosinophilia**, and **antibodies against neutrophil myeloperoxidase**"
     ],
     "explanation": [
       "**Eosinophilic granulomatosis with polyangiitis** (EGPA, formerly **Churg-Strauss syndrome**) is a small vessel vasculitis without immune complexes associated with asthma, eosinophilia, and **antibodies against neutrophil myeloperoxidase** (also known as p-ANCA).\n\n>EGPA refers to the combination of primary vasculitis with eosinophilic vasculitis, late-onset asthma, and multisystemic involvement. \n\nHistopathologically, it is marked by **allergic angiitis**  and granulomatosis.\n\n Any organ system can be affected, but **lung involvement** (severe asthma) is almost always present. \n\nSkin lesions occur in up to 50%-70% of cases.\n\n Other commonly affected organs include the nervous system (mono- and polyneuropathy), heart, kidneys, and abdominal viscera."
