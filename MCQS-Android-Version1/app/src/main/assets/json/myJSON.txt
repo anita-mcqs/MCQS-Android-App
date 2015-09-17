@@ -1,5 +1,5 @@
-{
-  "mcqs": {
+[
+  {
     "options": [
       {
         "incorrectAnswers": [
@@ -57,16 +57,159 @@
       }
     ],
     "background": [
-      "William, age 30, came to see the doctor because he wanted a \ndate. He had never had a date in his life and was very \nfrustrated by his inability to meet and successfully ask a \nwoman on a date. <p> During the doctor's evaluation William said he was \nat a loss as to what his problem was. His mother, who was in \nthe room at the time, had her own opinions regarding William's problem. \nWilliam, she said, misreads situations by misinterpreting facial signals by his prospective dates. <p>\n<i>\"He has always done so. Sometimes he comes on too strong, sometimes he is \nwithdrawn when another person is interested.\n He doesn't read \nthe tone of my voice correctly either. I can be really mad at him \nand he doesn't take me seriously. Or he can think I'm mad when \nI'm not,\" </i>she says. \n <br>The physician is concerned that an area of William's brain is most likely to be malfunctioning, thereby causing his social problems by causing William to misinterpret facial signals by his prospective dates. He decides to investigate further by doing a more detailed scan on his brain, which shows an abnormal part of the brain, as shown in yellow. \n\t <br><br><img src=\"http://www.radiography.com/mcqs/images/SPECTamygdala.jpg\"><br/>He also had a SPECT scan, which confirmed that this particular part of his brain, as highlighted in yellow, in the location as suspected by the physician, was abnormal. <p>"
+      "William, age 30, came to see the doctor because he wanted a \ndate.  He had never had a date in his life and was very \nfrustrated by his inability to meet and successfully ask a  \nwoman on a date.  <p> During the doctor's evaluation William said he was \nat a loss as to what his problem was.  His mother, who was in \nthe room at the time, had her own opinions regarding William's problem.  \nWilliam, she said, misreads situations by misinterpreting facial signals by his prospective dates. <p>\n  <i>\"He has always done so.  Sometimes he comes on too strong, sometimes he is \nwithdrawn when another person is interested.\n  He doesn't read \nthe tone of my voice correctly either.  I can be really mad at him \nand he doesn't take me seriously.  Or he can think I'm mad when \nI'm not,\" </i>she says. \n      <br>The physician is concerned that an area of William's brain is most likely to be malfunctioning, thereby causing his social problems by causing William to misinterpret facial signals by his prospective dates. He decides to investigate further by doing a more detailed scan on his brain, which shows an abnormal part of the brain, as shown in yellow. \n\t <br><br>Please click image button below to view image<br/>He also had a SPECT scan, which confirmed that this  particular part of his  brain, as highlighted in yellow, in the location as suspected by the physician, was abnormal. <p>"
     ],
     "question": [
-      "Which <b>exact part </b>of the brain is likely to have shown up as abnormal on the <i>SPECT scan? </i>"
+      "Which <b>exact  part </b>of the brain is likely to have shown up as abnormal on the  <i>SPECT scan?  </i>"
     ],
     "core": [
       "The exact part of the brain that is likely to have shown up as abnormal on the SPECT scan is the amygdala"
     ],
     "explanation": [
       "William's SPECT showed marked decreased activity in his right temporal lobe; his left temporal lobe was fine.\n\nThe intervention that was most effective for William was intensive social skills training. He worked with a psychologist who coached him on facial expressions, voice tones, and proper social etiquette. He had his first date 6 months after coming to the clinic."
+    ],
+    "images": [
+      "http://www.radiography.com/mcqs/images/SPECTamygdala.jpg"
+    ]
+  },
+  {
+    "options": [
+      {
+        "incorrectAnswers": [
+          {
+            "incorrectAnswer": [
+              {
+                "_": "Allergic bronchopulmonary aspergellosis",
+                "$": {
+                  "node": "Options",
+                  "item": "1",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "Cystic fibrosis",
+                "$": {
+                  "node": "Options",
+                  "item": "2",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "Paragoniums westermani infection",
+                "$": {
+                  "node": "Options",
+                  "item": "3",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "Pancoast tumor",
+                "$": {
+                  "node": "Options",
+                  "item": "4",
+                  "dataIndex": "0"
+                }
+              }
+            ]
+          }
+        ],
+        "correctAnswers": [
+          {
+            "correctAnswer": [
+              {
+                "_": "Churg-Strauss syndrome",
+                "$": {
+                  "node": "Options",
+                  "item": "0",
+                  "dataIndex": "0"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": [
+      "A 21-year-old Caucasian male presents to your office with **wheezing and rhinitis**. \nLaboratory results show **peripheral eosinophilia** and **antibodies against neutrophil myeloperoxidase**."
+    ],
+    "question": [
+      "What is the most likely diagnosis?"
+    ],
+    "core": [
+      "`Churg-Strauss syndrome` is a **small vessel vasculitis **without immune complexes associated with asthma, **eosinophilia**, and **antibodies against neutrophil myeloperoxidase**"
+    ],
+    "explanation": [
+      "**Eosinophilic granulomatosis with polyangiitis** (EGPA, formerly **Churg-Strauss syndrome**) is a small vessel vasculitis without immune complexes associated with asthma, eosinophilia, and **antibodies against neutrophil myeloperoxidase** (also known as p-ANCA).\n\n>EGPA refers to the combination of primary vasculitis with eosinophilic vasculitis, late-onset asthma, and multisystemic involvement. \n\nHistopathologically, it is marked by **allergic angiitis**  and granulomatosis.\n\n Any organ system can be affected, but **lung involvement** (severe asthma) is almost always present. \n\nSkin lesions occur in up to 50%-70% of cases.\n\n Other commonly affected organs include the nervous system (mono- and polyneuropathy), heart, kidneys, and abdominal viscera."
+    ]
+  },
+  {
+    "options": [
+      {
+        "incorrectAnswers": [
+          {
+            "incorrectAnswer": [
+              {
+                "_": "femoral trangle",
+                "$": {
+                  "node": "Options",
+                  "item": "1",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "posterior to medial malleolus",
+                "$": {
+                  "node": "Options",
+                  "item": "2",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "lateral aspect of the foot",
+                "$": {
+                  "node": "Options",
+                  "item": "3",
+                  "dataIndex": "0"
+                }
+              },
+              {
+                "_": "popliteal fossa",
+                "$": {
+                  "node": "Options",
+                  "item": "4",
+                  "dataIndex": "0"
+                }
+              }
+            ]
+          }
+        ],
+        "correctAnswers": [
+          {
+            "correctAnswer": [
+              {
+                "_": "medial side of the thigh",
+                "$": {
+                  "node": "Options",
+                  "item": "0",
+                  "dataIndex": "0"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "background": [
+      "A vascular surgeon is preparing to harvest the **longest vein in the body** to use as a conduit for peripheral **arterial bypass** procedure."
+    ],
+    "question": [
+      "Where will she find and harvest this vein?"
+    ],
+    "core": [
+      "The great saphenous vein can be found traveling up the medial side of the thigh."
+    ],
+    "explanation": [
+      "The **great saphenous vein ** is the longest vein in the body and runs along the length of the leg. It can be found traveling up the medial side of the thigh.\nThe great saphenous vein originates at the medial aspect of the foot, courses anterior to the medial maleolus and travels up the **medial side of the leg** and thigh to just inferior to the pubic tubercle. \n\nThere it joins with the femoral vein in the region of the femoral triangle. \n\nThe great saphenous vein can be harvested for used in coronary artery bypass as well as a peripheral arterial bypass. The two methods of harvesting the vein include a long open incision from the groin to ankle as well as a minimally invasive endoscopic approach."
     ]
   }
-}
+]

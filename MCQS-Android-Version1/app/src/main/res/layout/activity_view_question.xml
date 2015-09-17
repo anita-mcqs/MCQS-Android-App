@@ -37,7 +37,7 @@
         android:layout_alignParentEnd="true"
         android:visibility="invisible"
         android:layout_marginBottom="2dp"
-        android:layout_below="@+id/imageView">
+        android:layout_alignTop="@+id/textViewBackground">
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
         android:layout_above="@+id/buttonOption1"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="2dp"
-        android:layout_below="@+id/imageView">
+        android:layout_alignTop="@+id/textViewBackground">
 
         <TextView
             android:layout_width="wrap_content"
@@ -77,11 +77,18 @@
             android:layout_toEndOf="@+id/button6" />
     </ScrollView>
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/relativeLayout">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="invisible"
         android:id="@+id/imageView" />
+</RelativeLayout>
+
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -97,7 +104,7 @@
         android:text="Explanation"
         android:background="#607D8B"
         android:id="@+id/buttonExplanation"
-        android:enabled="false"
+        android:enabled="true"
         android:layout_alignBottom="@+id/button6"
         android:layout_toStartOf="@+id/textViewQuestion"
         android:layout_marginRight="2dp" />
@@ -121,11 +128,10 @@
         android:text="Option 5"
         android:background="#D8D8D8"
         android:id="@+id/buttonOption5"
-
         android:layout_above="@+id/relativeLayout"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -147,7 +153,7 @@
         android:layout_above="@+id/buttonOption4"
         android:layout_marginBottom="5dp"
         android:layout_alignEnd="@+id/buttonOption4"
-        android:layout_toEndOf="@+id/imageView" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -181,6 +187,13 @@
         android:layout_alignBottom="@+id/relativeLayout"
         android:layout_alignParentStart="true"
         android:layout_marginStart="856dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/textViewBackground"
+        android:layout_alignParentEnd="true"></RelativeLayout>
 
 
 </RelativeLayout>

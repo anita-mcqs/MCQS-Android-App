@@ -1,20 +1,20 @@
 package com.mcqs.anita.mcqs_android_version1;
 
+
 /**
  * Created by david-MCQS on 07/09/2015.
  */
 public class Question {
 
-  //  private String[] optionsArray = new String[5];//5 options
-   // private int correctAnswer;
- //   private String correctNode;
+    private int index;
     private String background;
     private String question;
     private QuestionOptions[] questionOptions = new QuestionOptions[5];
     private String core;
     private String explanation;
-  //  private int attemptId;
-  //  private String questionId;
+    private String imagePath;
+
+
 
     public Question(){
         //default constructor
@@ -26,6 +26,23 @@ public class Question {
         this.core = core;
         this.explanation=explanation;
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public QuestionOptions[] getQuestionOptions() {
         return questionOptions;
     }

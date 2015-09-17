@@ -30,7 +30,7 @@ import android.util.Log;
 /**
  * Created by david-MCQS on 07/09/2015.
  */
-public class JSONParser {
+public class MyJSONParser {
 
     static InputStream is = null;
     static JSONObject json = null;
@@ -40,7 +40,7 @@ public class JSONParser {
 
 
     // constructor
-    public JSONParser() {
+    public MyJSONParser() {
 
     }
 
