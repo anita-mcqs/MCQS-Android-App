@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -141,7 +144,7 @@ public class ViewQuestion extends AppCompatActivity {
                     .getAsJsonArray().get(i).getAsJsonObject().getAsJsonArray("options").get(0).getAsJsonObject().getAsJsonArray("correctAnswers").get(0)
                     .getAsJsonObject().getAsJsonArray("correctAnswer").get(0).getAsJsonObject().get("_").getAsString();
 
-            System.out.println("correct: " + correctAnswer);
+           //System.out.println("correct: " + correctAnswer);
 
 
             QuestionOptions corr = new QuestionOptions(correctAnswer, true);
@@ -375,12 +378,21 @@ private void displayQuestions(){
     backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
     questionImage = (ImageView) findViewById(R.id.imageView);
 
+    //WebSettings settings = questionImage.getSettings();
+   // settings.setUseWideViewPort(true);
+   // settings.setLoadWithOverviewMode(true);
+    //Display display = getWindowManager().getDefaultDisplay();
+    //int width=display.getWidth();
+    //settings.setBuiltInZoomControls(true);
+    //settings.setSupportZoom(true);
 
-
+   // String html = "<html><head></head><body><center><img width=\""+ "100%" +"\" src=\""+ "file://"+displayImagePath + "\"></center></body></html>";
     File file = new File(displayImagePath);
     questionImage.setImageURI(Uri.fromFile(file));
-    int height = questionImage.getMaxHeight();
-    int width = questionImage.getMaxWidth();
+   // questionImage.loadUrl(displayImagePath);
+  //  questionImage.loadDataWithBaseURL("", html, "text/html", "utf-8", "");
+    // int height = questionImage.getMaxHeight();
+   // int width = questionImage.getMaxWidth();
    // System.out.println("Image Height " + height + " Width " + width);
 
     String myQuestion = displayBackgroundString+"\n"+displayQuestionString;
