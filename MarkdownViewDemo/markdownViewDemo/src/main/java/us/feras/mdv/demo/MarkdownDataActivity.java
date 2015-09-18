@@ -20,7 +20,7 @@ public class MarkdownDataActivity extends Activity {
 		markdownEditText = (EditText) findViewById(R.id.markdownText);
 		markdownView = (MarkdownView) findViewById(R.id.markdownView);
 	//	markdownView.loadMarkdownFile("file:///android_asset/foghorn.css");
-		markdownView.loadMarkdownFile("file:///android_asset/markdown_css_themes/foghorn.css");
+		//markdownView.loadMarkdownFile("file:///android_asset/markdown_css_themes/foghorn.css");
 		String text = getResources().getString(R.string.md_sample_data);
 
 		markdownEditText.setText(text);
@@ -38,6 +38,7 @@ public class MarkdownDataActivity extends Activity {
 	}
 
 	private void updateMarkdownView() {
+		System.out.println(markdownEditText.getText().toString());
 		markdownView.loadMarkdown(markdownEditText.getText().toString(),"file:///android_asset/markdown_css_themes/foghorn.css");
 	}
 }

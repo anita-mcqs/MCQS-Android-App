@@ -1,5 +1,6 @@
 package com.mcqs.anita.mcqs_android_version1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.AssetManager;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -42,8 +44,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import com.commonsware.cwac.anddown.AndDown;
-
+import us.feras.mdv.MarkdownView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,12 +57,12 @@ import java.util.List;
 
 import android.view.View.OnClickListener;
 
-public class ViewQuestion extends AppCompatActivity {
+public class ViewQuestion extends Activity {
 
     // private static String questionURL = "http://192.168.1.7:2010/api/fullQuestion";
     private ArrayList<Question> questionList = new ArrayList<Question>();
-    private TextView backgroundText;
-    private TextView questionText;
+   // private TextView backgroundText;
+    private MarkdownView questionText;
     private Button optionOne;
     private Button optionTwo;
     private Button optionThree;
@@ -72,8 +73,8 @@ public class ViewQuestion extends AppCompatActivity {
     private Button explanationButton;
     private Button imageButton;
     private Button questionButton;
-    private TextView coreText;
-    private TextView explainText;
+   // private TextView coreText;
+    private MarkdownView explainText;
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
     private ScrollView parentScroll;
@@ -83,6 +84,8 @@ public class ViewQuestion extends AppCompatActivity {
     private int progressMax=0;
     private String myJSONString = "";
     private ImageView questionImage;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,9 +231,9 @@ public class ViewQuestion extends AppCompatActivity {
         //String toReturn="";
           //  Bypass bypass = new Bypass(ViewQuestion.this);
 
-        AndDown converter=new AndDown();
-        String con = converter.markdownToHtml(toConvert);
-        CharSequence c = Html.fromHtml(con);
+    //    AndDown converter=new AndDown();
+      //  String con = converter.markdownToHtml(toConvert);
+        CharSequence c = "";//Html.fromHtml(con);
        // AndDown converter=new AndDown();
 
        // String converted = converter.markdownToHtml(toConvert);
@@ -361,8 +364,8 @@ private void displayQuestions(){
     myOptions = new ArrayList<QuestionOptions>(Arrays.asList(questionOptions));
     Collections.shuffle(myOptions);//shuffle options
 
-    backgroundText = (TextView) findViewById(R.id.textViewBackground);
-    questionText = (TextView) findViewById(R.id.textViewQuestion);
+   // backgroundText = (TextView) findViewById(R.id.textViewBackground);
+    questionText = (MarkdownView) findViewById(R.id.textViewQuestion);
     optionOne = (Button) findViewById(R.id.buttonOption1);
     optionTwo = (Button) findViewById(R.id.buttonOption2);
     optionThree = (Button) findViewById(R.id.buttonOption3);
@@ -372,11 +375,13 @@ private void displayQuestions(){
     explanationButton = (Button) findViewById(R.id.buttonExplanation);
     imageButton = (Button) findViewById(R.id.buttonImage);
     questionButton = (Button) findViewById(R.id.buttonQuestion);
-    coreText = (TextView) findViewById(R.id.textViewCore);
-    explainText = (TextView) findViewById(R.id.textViewExplanation);
+   // coreText = (TextView) findViewById(R.id.textViewCore);
+    explainText = (MarkdownView) findViewById(R.id.textViewExplanation);
     explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
     backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
     questionImage = (ImageView) findViewById(R.id.imageView);
+
+
 
     //WebSettings settings = questionImage.getSettings();
    // settings.setUseWideViewPort(true);
@@ -403,23 +408,33 @@ private void displayQuestions(){
     myExplanation.replaceAll("\\s+", System.getProperty("line.separator"));
 
     CharSequence back = convertMarkdown(displayBackgroundString);
-    backgroundText.setText(back);
+  //  backgroundText.setText(back);
 
     CharSequence q = convertMarkdown(myQuestion);
-    questionText.setText(q);
+   // questionText.setText(q);
 
 
     CharSequence core = convertMarkdown(displayCoreString);
-    coreText.setText(core);
+    
 
+    String markdownTest = getResources().getString(R.string.markdown_test);
 
+    //change back to below
+    questionText.loadMarkdown(myQuestion);
+   // coreText.setText(myQuestion);
+
+//Markdown Test!!
+    // TODO: 18/09/2015 - markdown test
     CharSequence ex = convertMarkdown(myExplanation);
-    explainText.setText(ex);
+    explainText.loadMarkdown(markdownTest,"file:///android_asset/markdown_css_themes/foghorn.css");
+  //  explainText.loadMarkdown(myExplanation);
+    //explainText.setText(myExplanation);
 
 
 
 
     optionOne.setText(myOptions.get(0).getAnswer());
+    System.out.println(myOptions.get(0).getAnswer());
     optionTwo.setText(myOptions.get(1).getAnswer());
     optionThree.setText(myOptions.get(2).getAnswer());
     optionFour.setText(myOptions.get(3).getAnswer());
@@ -516,6 +531,8 @@ private void displayQuestions(){
         @Override
         public void onClick(View view) {
             displayQuestions();
+
+            //test edit
 
             explainText.setVisibility(View.INVISIBLE);
             explainScroll.setVisibility(View.INVISIBLE);

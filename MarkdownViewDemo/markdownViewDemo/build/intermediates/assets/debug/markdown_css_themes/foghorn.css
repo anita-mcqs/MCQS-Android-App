@@ -74,6 +74,7 @@ blockquote {
 	pre {
         padding: 0px 24px;
         max-width: 800px;
+        color: red;
         white-space: pre-wrap;
     }
 code {

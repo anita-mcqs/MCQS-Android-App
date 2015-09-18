@@ -3,7 +3,7 @@
     package="us.feras.mdv.test" >
 
     <uses-sdk
-        android:minSdkVersion="15"
+        android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
     <instrumentation

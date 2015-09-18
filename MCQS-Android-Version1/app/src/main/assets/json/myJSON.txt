@@ -130,7 +130,7 @@
       }
     ],
     "background": [
-      "#Test.# *** <br>   >A 21-year-old\n--- Caucasian male presents\n* * * to your office with **wheezing and rhinitis**.<br>    Laboratory results show **peripheral eosinophilia** and **antibodies against neutrophil myeloperoxidase**."
+      "A 21-year-old Caucasian male presents to your office with **wheezing and rhinitis**.<br>    Laboratory results show **peripheral eosinophilia** and **antibodies against neutrophil myeloperoxidase**."
     ],
     "question": [
       "What is the most likely diagnosis?"

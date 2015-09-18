@@ -72,14 +72,17 @@ blockquote {
 	border-left: 1px solid #ddd;
 	}
 	pre {
+	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
         padding: 0px 24px;
         max-width: 800px;
+        margin-left: 10%;
         color: red;
         white-space: pre-wrap;
     }
 code {
 	font-family: "Consolas", "Menlo", "Monaco", monospace, serif;
 	font-size: .9em;
+	color: green;
 	background: white;
 	margin-left: 10%;
 	}
