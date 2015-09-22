@@ -10,6 +10,7 @@ import java.net.URI;
 
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -61,7 +62,6 @@ public class ViewQuestion extends AppCompatActivity  {
 
     // private static String questionURL = "http://192.168.1.7:2010/api/fullQuestion";
     private ArrayList<Question> questionList = new ArrayList<Question>();
-   // private TextView backgroundText;
     private MarkdownView questionText;
     private Button optionOne;
     private Button optionTwo;
@@ -73,7 +73,6 @@ public class ViewQuestion extends AppCompatActivity  {
     private Button explanationButton;
     private Button imageButton;
     private Button questionButton;
-   // private TextView coreText;
     private MarkdownView explainText;
     private ScrollView explainScroll;
     private ScrollView backgroundScroll;
@@ -84,6 +83,7 @@ public class ViewQuestion extends AppCompatActivity  {
     private int progressMax=0;
     private String myJSONString = "";
     private ImageView questionImage;
+    private TextView actionBarTitle;
 
 
 
@@ -91,6 +91,14 @@ public class ViewQuestion extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_question);
+
+
+
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar);
+        actionBarTitle = (TextView) findViewById(R.id.action_bar_text);
+        actionBarTitle.setText(R.string.title_activity_view_question);
         checkFiles();//if there don't copy file
         myJSONString =  readFromFile();
         parseJSONFile(myJSONString);
@@ -226,29 +234,6 @@ public class ViewQuestion extends AppCompatActivity  {
 
 
 
-    private CharSequence convertMarkdown(String toConvert){
-
-        //String toReturn="";
-          //  Bypass bypass = new Bypass(ViewQuestion.this);
-
-    //    AndDown converter=new AndDown();
-      //  String con = converter.markdownToHtml(toConvert);
-        CharSequence c = "";//Html.fromHtml(con);
-       // AndDown converter=new AndDown();
-
-       // String converted = converter.markdownToHtml(toConvert);
-        //CharSequence d = Html.fromHtml(toConvert);
-        //CharSequence c = bypass.markdownToSpannable(d.toString());
-        //CharSequence e = Html.fromHtml(c.toString());
-
-       // toReturn = c.toString();
-
-        return c;
-    }
-
-
-
-
 
     private void checkFiles() {
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
@@ -264,7 +249,6 @@ public class ViewQuestion extends AppCompatActivity  {
         }
         else
         {
-            // System.out.print("empty folder");
             copyAssetFolder(assetMgr, "json", toPath);
             copyAssetFolder(assetMgr, "myImages", toPathImages);
         }
@@ -304,14 +288,6 @@ public class ViewQuestion extends AppCompatActivity  {
 
 
 
-
-
-
-
-
-
-
-
     private static boolean copyAsset(AssetManager assetManager,
                                      String fromAssetPath, String toPath) {
         InputStream in = null;
@@ -333,8 +309,6 @@ public class ViewQuestion extends AppCompatActivity  {
             return false;
         }
     }
-
-
 
 
 
@@ -364,7 +338,7 @@ private void displayQuestions(){
     myOptions = new ArrayList<QuestionOptions>(Arrays.asList(questionOptions));
     Collections.shuffle(myOptions);//shuffle options
 
-   // backgroundText = (TextView) findViewById(R.id.textViewBackground);
+
     questionText = (MarkdownView) findViewById(R.id.textViewQuestion);
     optionOne = (Button) findViewById(R.id.buttonOption1);
     optionTwo = (Button) findViewById(R.id.buttonOption2);
@@ -375,13 +349,10 @@ private void displayQuestions(){
     explanationButton = (Button) findViewById(R.id.buttonExplanation);
     imageButton = (Button) findViewById(R.id.buttonImage);
     questionButton = (Button) findViewById(R.id.buttonQuestion);
-   // coreText = (TextView) findViewById(R.id.textViewCore);
     explainText = (MarkdownView) findViewById(R.id.textViewExplanation);
     explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
     backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
     questionImage = (ImageView) findViewById(R.id.imageView);
-
-
 
     //WebSettings settings = questionImage.getSettings();
    // settings.setUseWideViewPort(true);
@@ -407,42 +378,22 @@ private void displayQuestions(){
     myExplanation.replaceAll("\\s+", "\n");
     myExplanation.replaceAll("\\s+", System.getProperty("line.separator"));
 
-    CharSequence back = convertMarkdown(displayBackgroundString);
-  //  backgroundText.setText(back);
-
-    CharSequence q = convertMarkdown(myQuestion);
-   // questionText.setText(q);
 
 
-    CharSequence core = convertMarkdown(displayCoreString);
-    
-
-    String markdownTest = "This is *italic* and also _italic_. This is **bold** and also __bold__.\n Line of code \n***\nAnother Line\n---\nLast Line\n* * *\nend\n\n" +
-            "    >blockquote\n>>Nested text\n>###quote with header\n>\n> * list with quote\n> * Item Two\n\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n\n" +
-            "    Links\n\nLink to Google [Google](http://google.com/).\nLink with title [Google](http://google.com/ \"Google\").\n\n" +
-            "    \nInput:\ntest `indexOf()` array" +
-            "    test <code>System.out.println()</code>\n to print to console\n<pre>pretagvdxvdxv</pre>\n\n    pretaglskfdslkdfjse";
-
-    //change back to below
+    //Markdown View
     questionText.loadMarkdown(myQuestion, "file:///android_asset/markdown_css_themes/foghorn.css");
-   // coreText.setText(myQuestion);
-
-//Markdown Test!!
-    // TODO: 18/09/2015 - markdown test
-    CharSequence ex = convertMarkdown(myExplanation);
-    explainText.loadMarkdown(myExplanation,"file:///android_asset/markdown_css_themes/foghorn.css");
-  //  explainText.loadMarkdown(myExplanation);
-    //explainText.setText(myExplanation);
-
-
+    explainText.loadMarkdown(myExplanation, "file:///android_asset/markdown_css_themes/foghorn.css");
 
 
     optionOne.setText(myOptions.get(0).getAnswer());
-    System.out.println(myOptions.get(0).getAnswer());
+    //System.out.println(myOptions.get(0).getAnswer());
     optionTwo.setText(myOptions.get(1).getAnswer());
     optionThree.setText(myOptions.get(2).getAnswer());
     optionFour.setText(myOptions.get(3).getAnswer());
     optionFive.setText(myOptions.get(4).getAnswer());
+
+
+
 
     optionOne.setOnClickListener(new OnClickListener() {
         @Override
@@ -466,7 +417,6 @@ private void displayQuestions(){
             boolean status = myOptions.get(1).isCorrectAnswer();
             if (status == true) {
                 optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
-
             } else {
                 optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
                 showCorrectAnswer(2);
@@ -536,8 +486,6 @@ private void displayQuestions(){
         public void onClick(View view) {
             displayQuestions();
 
-            //test edit
-
             explainText.setVisibility(View.INVISIBLE);
             explainScroll.setVisibility(View.INVISIBLE);
             backgroundScroll.setVisibility(View.VISIBLE);
@@ -548,12 +496,10 @@ private void displayQuestions(){
             optionFour.setVisibility(View.VISIBLE);
             optionFive.setVisibility(View.VISIBLE);
             questionImage.setVisibility(View.INVISIBLE);
-
             questionButton.setVisibility(View.INVISIBLE);
             imageButton.setVisibility(View.VISIBLE);
             explanationButton.setVisibility(View.INVISIBLE);
             viewStatus = false;
-
             optionOne.setBackgroundColor(Color.parseColor("#D8D8D8"));
             optionTwo.setBackgroundColor(Color.parseColor("#D8D8D8"));
             optionThree.setBackgroundColor(Color.parseColor("#D8D8D8"));
@@ -577,15 +523,9 @@ private void displayQuestions(){
             optionFour.setVisibility(View.INVISIBLE);
             optionFive.setVisibility(View.INVISIBLE);
             questionImage.setVisibility(View.VISIBLE);
-
-
             explanationButton.setVisibility(View.INVISIBLE);
             questionButton.setVisibility(View.VISIBLE);
             imageButton.setVisibility(View.INVISIBLE);
-
-
-
-
         }
     });
 
@@ -604,7 +544,6 @@ private void displayQuestions(){
                 optionFour.setVisibility(View.VISIBLE);
                 optionFive.setVisibility(View.VISIBLE);
                 questionImage.setVisibility(View.INVISIBLE);
-
                 questionButton.setVisibility(View.INVISIBLE);
                 imageButton.setVisibility(View.VISIBLE);
                 explanationButton.setVisibility(View.INVISIBLE);
@@ -620,12 +559,10 @@ private void displayQuestions(){
                 optionFour.setVisibility(View.VISIBLE);
                 optionFive.setVisibility(View.VISIBLE);
                 questionImage.setVisibility(View.INVISIBLE);
-
                 questionButton.setVisibility(View.INVISIBLE);
                 imageButton.setVisibility(View.INVISIBLE);
                 explanationButton.setVisibility(View.VISIBLE);
             }
-
         }
     });
 
@@ -645,14 +582,10 @@ private void displayQuestions(){
             optionFour.setVisibility(View.INVISIBLE);
             optionFive.setVisibility(View.INVISIBLE);
             questionImage.setVisibility(View.INVISIBLE);
-
             questionButton.setVisibility(View.VISIBLE);
             imageButton.setVisibility(View.INVISIBLE);
             explanationButton.setVisibility(View.INVISIBLE);
             viewStatus = true;
-
-
-
         }
     });
 }
@@ -660,291 +593,6 @@ private void displayQuestions(){
 
 
 
-/*
-
-    //to delete when JSON sort out!!
-    private void parseXML(){
-        AssetManager assetManager = getBaseContext().getAssets();
-        try{
-
-            Field[] fields = R.raw.class.getFields();
-
-            int choice= (int) (Math.random() * fields.length);//select random question
-            int resourceID = fields[choice].getInt(fields[choice]);
-            InputStream is=getResources().openRawResource(resourceID);
-
-            //myList.get(choice)
-            SAXParserFactory spf = SAXParserFactory.newInstance();
-            SAXParser sp = spf.newSAXParser();
-            XMLReader xr = sp.getXMLReader();
-            QuestionXMLHandler myXMLHandler = new QuestionXMLHandler();
-            xr.setContentHandler(myXMLHandler);
-            InputSource inStream = new InputSource(is);
-            xr.parse(inStream);
-            String background = myXMLHandler.getBackground();
-            String question = myXMLHandler.getQuestion();
-            String core = myXMLHandler.getCore();
-            String explanation = myXMLHandler.getExplanation();
-            myOptions = myXMLHandler.getMyOptions();
-            Collections.shuffle(myOptions);//shuffle options
-            QuestionOptions firstOption = myOptions.get(0);//if boolean true/false
-
-            backgroundText = (TextView) findViewById(R.id.textViewBackground);
-            questionText = (TextView) findViewById(R.id.textViewQuestion);
-            optionOne = (Button) findViewById(R.id.buttonOption1);
-            optionTwo = (Button) findViewById(R.id.buttonOption2);
-            optionThree = (Button) findViewById(R.id.buttonOption3);
-            optionFour = (Button) findViewById(R.id.buttonOption4);
-            optionFive = (Button) findViewById(R.id.buttonOption5);
-            nextButton = (Button) findViewById(R.id.buttonNext);
-            explanationButton = (Button) findViewById(R.id.buttonExplanation);
-            coreText = (TextView) findViewById(R.id.textViewCore);
-            explainText = (TextView) findViewById(R.id.textViewExplanation);
-            explainScroll = (ScrollView) findViewById(R.id.scrollViewEx);
-            backgroundScroll = (ScrollView) findViewById(R.id.scrollView);
-            //  parentScroll = (ScrollView) findViewById(R.id.scrollViewParent);
-            //progressBar = (ProgressBar) findViewById(R.id.progressBar2);
-
-           //scrollbar within a scroll bar
-            parentScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    findViewById(R.id.scrollViewEx).getParent().requestDisallowInterceptTouchEvent(false);
-                    findViewById(R.id.scrollView).getParent().requestDisallowInterceptTouchEvent(false);
-                    return false;
-                }
-            });
-            backgroundScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    return false;
-                }
-            });
-            explainScroll.setOnTouchListener(new View.OnTouchListener(){
-
-                @Override
-                public boolean onTouch(View v, MotionEvent event){
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    return false;
-                }
-            });
-
-
-
-
-            String myQuestion = background+"\n"+question;
-            String myExplanation = core+"\n"+explanation;
-            myQuestion.replaceAll("\\s+", "\n");
-            myQuestion.replaceAll("\\s+", System.getProperty("line.separator"));
-            myExplanation.replaceAll("\\s+", "\n");
-            myExplanation.replaceAll("\\s+", System.getProperty("line.separator"));
-            backgroundText.setText(background);
-            questionText.setText(myQuestion);
-
-
-            coreText.setText(core);
-            explainText.setText(myExplanation);
-            optionOne.setText(myOptions.get(0).getAnswer());
-            optionTwo.setText(myOptions.get(1).getAnswer());
-            optionThree.setText(myOptions.get(2).getAnswer());
-            optionFour.setText(myOptions.get(3).getAnswer());
-            optionFive.setText(myOptions.get(4).getAnswer());
-
-            optionOne.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    boolean status = myOptions.get(0).isCorrectAnswer();
-                    if (status == true) {
-                        optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-
-                        progressInt = progressInt+1;
-                        progressBar.setProgress(progressInt);
-                    } else {
-                        optionOne.setBackgroundColor(Color.parseColor("#F44336"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        //   progressInt = progressInt-1;
-                        //   progressBar.setProgress(progressInt);
-                        showCorrectAnswer(1);
-                    }
-                    explanationButton.setEnabled(true);
-                    disableOptionButtons();
-                }
-            });
-            optionTwo.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    boolean status = myOptions.get(1).isCorrectAnswer();
-                    if (status == true) {
-                        optionTwo.setBackgroundColor(Color.parseColor("#4caf50"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        progressInt = progressInt+1;
-                        progressBar.setProgress(progressInt);
-
-                    } else {
-                        optionTwo.setBackgroundColor(Color.parseColor("#F44336"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        //   progressInt = progressInt-1;
-                        //   progressBar.setProgress(progressInt);
-                        showCorrectAnswer(2);
-                    }
-                    explanationButton.setEnabled(true);
-                    disableOptionButtons();
-                }
-            });
-            optionThree.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    boolean status = myOptions.get(2).isCorrectAnswer();
-                    if(status==true){
-                        optionThree.setBackgroundColor(Color.parseColor("#4caf50"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        progressInt = progressInt+1;
-                        progressBar.setProgress(progressInt);
-                    }
-                    else{
-                        optionThree.setBackgroundColor(Color.parseColor("#F44336"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        //    progressInt = progressInt-1;
-                        //    progressBar.setProgress(progressInt);
-                        showCorrectAnswer(3);
-                    }
-                    explanationButton.setEnabled(true);
-                    disableOptionButtons();
-                }
-            });
-            optionFour.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    boolean status = myOptions.get(3).isCorrectAnswer();
-                    if(status==true){
-                        optionFour.setBackgroundColor(Color.parseColor("#4caf50"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        progressInt = progressInt+1;
-                        progressBar.setProgress(progressInt);
-                    }
-                    else{
-                        optionFour.setBackgroundColor(Color.parseColor("#F44336"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        //   progressInt = progressInt-1;
-                        //  progressBar.setProgress(progressInt);
-                        showCorrectAnswer(4);
-                    }
-                    explanationButton.setEnabled(true);
-                    disableOptionButtons();
-                }
-            });
-            optionFive.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    boolean status = myOptions.get(4).isCorrectAnswer();
-                    if(status==true){
-                        optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        progressInt = progressInt+1;
-                        progressBar.setProgress(progressInt);
-                    }
-                    else{
-                        optionFive.setBackgroundColor(Color.parseColor("#F44336"));
-                        progressMax = progressMax+1;
-                        progressBar.setMax(progressMax);
-                        //   progressInt = progressInt-1;
-                        //  progressBar.setProgress(progressInt);
-                        showCorrectAnswer(5);
-                    }
-                    explanationButton.setEnabled(true);
-                    disableOptionButtons();
-                }
-            });
-            nextButton.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View view) {
-                    parseXML();
-
-                    //  coreText.setVisibility(View.INVISIBLE);
-                    explainText.setVisibility(View.INVISIBLE);
-                    explainScroll.setVisibility(View.INVISIBLE);
-                    //   backgroundText.setVisibility(View.VISIBLE);
-                    backgroundScroll.setVisibility(View.VISIBLE);
-                    questionText.setVisibility(View.VISIBLE);
-                    optionOne.setVisibility(View.VISIBLE);
-                    optionTwo.setVisibility(View.VISIBLE);
-                    optionThree.setVisibility(View.VISIBLE);
-                    optionFour.setVisibility(View.VISIBLE);
-                    optionFive.setVisibility(View.VISIBLE);
-                    explanationButton.setText("Explanation");
-                    explainViewStatus=false;
-
-                    progressMax = progressMax+1;
-                    progressBar.setMax(progressMax);
-                    explanationButton.setEnabled(false);
-                    optionOne.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                    optionTwo.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                    optionThree.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                    optionFour.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                    optionFive.setBackgroundColor(Color.parseColor("#D8D8D8"));
-                }
-            });
-
-            explanationButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(explainViewStatus==false) {
-                        // coreText.setVisibility(View.VISIBLE);
-                        explainText.setVisibility(View.VISIBLE);
-                        explainScroll.setVisibility(View.VISIBLE);
-                        //   backgroundText.setVisibility(View.INVISIBLE);
-                        backgroundScroll.setVisibility(View.INVISIBLE);
-                        questionText.setVisibility(View.INVISIBLE);
-                        optionOne.setVisibility(View.INVISIBLE);
-                        optionTwo.setVisibility(View.INVISIBLE);
-                        optionThree.setVisibility(View.INVISIBLE);
-                        optionFour.setVisibility(View.INVISIBLE);
-                        optionFive.setVisibility(View.INVISIBLE);
-                        explanationButton.setText("Question");
-                        explainViewStatus=true;
-                    }
-                    else if(explainViewStatus==true){
-                        //  coreText.setVisibility(View.INVISIBLE);
-                        explainText.setVisibility(View.INVISIBLE);
-                        explainScroll.setVisibility(View.INVISIBLE);
-                        //   backgroundText.setVisibility(View.VISIBLE);
-                        backgroundScroll.setVisibility(View.VISIBLE);
-                        questionText.setVisibility(View.VISIBLE);
-                        optionOne.setVisibility(View.VISIBLE);
-                        optionTwo.setVisibility(View.VISIBLE);
-                        optionThree.setVisibility(View.VISIBLE);
-                        optionFour.setVisibility(View.VISIBLE);
-                        optionFive.setVisibility(View.VISIBLE);
-                        explanationButton.setText("Explanation");
-                        explainViewStatus=false;
-                    }
-
-                }
-            });
-
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-
-
-    */
     private void showCorrectAnswer(int sel){
         for (int i = 0; i < myOptions.size(); i++) {
             boolean stat = myOptions.get(i).isCorrectAnswer();
@@ -1002,7 +650,6 @@ private void displayQuestions(){
                         optionFive.setBackgroundColor(Color.parseColor("#4caf50"));
                     }
                 }
-
                 else if(sel==5){
                     if (i == 0) {
                         optionOne.setBackgroundColor(Color.parseColor("#4caf50"));
@@ -1019,6 +666,7 @@ private void displayQuestions(){
             }
         }
     }
+
     private void disableOptionButtons(){
         optionOne.setClickable(false);
         optionTwo.setClickable(false);
@@ -1040,17 +688,12 @@ private void displayQuestions(){
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
+       // if (id == R.id.action_settings) {
+      //      return true;
+      //  }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }
 
 

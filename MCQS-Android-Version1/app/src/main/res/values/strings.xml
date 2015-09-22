@@ -1,15 +1,10 @@
 <resources>
-    <string name="app_name">MCQS-Android-Version</string>
+    <string name="app_name">MCQS App</string>
+
+    <string name="title_activity_view_question">MCQS Quiz</string>
+    <string name="title_activity_main">MCQS</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_choose_exam">Choose Exam</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="user_hint">User Name</string>
-    <string name="password_hint">Password</string>
-    <string name="button_signIn">Sign In</string>
-    <string name="title_activity_view_question">MCQS Quiz</string>
-    <string name="markdown_test">This is *italic* and also _italic_. This is **bold** and also __bold__.\n Line of code \n***\nAnother Line\n---\nLast Line\n* * *\nend\n
-    >blockquote\n>>Nested text\n>###quote with header\n>\n> * list with quote\n> * Item Two\n\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n
-    Links\n\nLink to Google [Google](http://google.com/).\nLink with title [Google](http://google.com/ "Google").\n
-    \nInput:\ntest `indexOf()` array\n
-    or use <code>System.out.println()</code> to print to console<pre>pretagvdxvdxv</pre>\n\n    pretaglskfdslkdfjse</string>
 </resources>
