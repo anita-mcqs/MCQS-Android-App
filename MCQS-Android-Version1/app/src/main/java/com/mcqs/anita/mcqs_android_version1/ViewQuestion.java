@@ -57,7 +57,7 @@ import java.util.List;
 
 import android.view.View.OnClickListener;
 
-public class ViewQuestion extends Activity {
+public class ViewQuestion extends AppCompatActivity  {
 
     // private static String questionURL = "http://192.168.1.7:2010/api/fullQuestion";
     private ArrayList<Question> questionList = new ArrayList<Question>();
@@ -417,16 +417,20 @@ private void displayQuestions(){
     CharSequence core = convertMarkdown(displayCoreString);
     
 
-    String markdownTest = getResources().getString(R.string.markdown_test);
+    String markdownTest = "This is *italic* and also _italic_. This is **bold** and also __bold__.\n Line of code \n***\nAnother Line\n---\nLast Line\n* * *\nend\n\n" +
+            "    >blockquote\n>>Nested text\n>###quote with header\n>\n> * list with quote\n> * Item Two\n\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n\n" +
+            "    Links\n\nLink to Google [Google](http://google.com/).\nLink with title [Google](http://google.com/ \"Google\").\n\n" +
+            "    \nInput:\ntest `indexOf()` array" +
+            "    test <code>System.out.println()</code>\n to print to console\n<pre>pretagvdxvdxv</pre>\n\n    pretaglskfdslkdfjse";
 
     //change back to below
-    questionText.loadMarkdown(myQuestion);
+    questionText.loadMarkdown(myQuestion, "file:///android_asset/markdown_css_themes/foghorn.css");
    // coreText.setText(myQuestion);
 
 //Markdown Test!!
     // TODO: 18/09/2015 - markdown test
     CharSequence ex = convertMarkdown(myExplanation);
-    explainText.loadMarkdown(markdownTest,"file:///android_asset/markdown_css_themes/foghorn.css");
+    explainText.loadMarkdown(myExplanation,"file:///android_asset/markdown_css_themes/foghorn.css");
   //  explainText.loadMarkdown(myExplanation);
     //explainText.setText(myExplanation);
 

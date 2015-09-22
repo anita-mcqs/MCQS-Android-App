@@ -11,5 +11,5 @@
     >blockquote\n>>Nested text\n>###quote with header\n>\n> * list with quote\n> * Item Two\n\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n
     Links\n\nLink to Google [Google](http://google.com/).\nLink with title [Google](http://google.com/ "Google").\n
     \nInput:\ntest `indexOf()` array\n
-    or use <code>System.out.println()</code> to print to console\n <pre>pretagvdxvdxv</pre>\n    pretaglskfdslkdfjse</string>
+    or use <code>System.out.println()</code> to print to console<pre>pretagvdxvdxv</pre>\n\n    pretaglskfdslkdfjse</string>
 </resources>

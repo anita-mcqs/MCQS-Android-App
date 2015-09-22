@@ -12,6 +12,7 @@ public class MarkdownDataActivity extends Activity {
 
 	private EditText markdownEditText;
 	private MarkdownView markdownView;
+	private String markdownTest;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,15 @@ public class MarkdownDataActivity extends Activity {
 		markdownView = (MarkdownView) findViewById(R.id.markdownView);
 	//	markdownView.loadMarkdownFile("file:///android_asset/foghorn.css");
 		//markdownView.loadMarkdownFile("file:///android_asset/markdown_css_themes/foghorn.css");
-		String text = getResources().getString(R.string.md_sample_data);
+	//	String text = getResources().getString(R.string.md_sample_data);
+		String text = "test<code>code</code>PreTag<pre>Pre Tags</pre>Code\n`laskdjaskldj`\n\n    test\n## This is a demo of MarkdownView \n * * * \n### Edit the text and hit update to see the changes on the view.";
+		//markdownTest = getResources().getString(R.string.md_sample_data);
+		System.out.println("text"+text);
+
+
+
+
+
 
 		markdownEditText.setText(text);
 		updateMarkdownView();
@@ -38,7 +47,8 @@ public class MarkdownDataActivity extends Activity {
 	}
 
 	private void updateMarkdownView() {
-		System.out.println(markdownEditText.getText().toString());
-		markdownView.loadMarkdown(markdownEditText.getText().toString(),"file:///android_asset/markdown_css_themes/foghorn.css");
+		//System.out.println(markdownEditText.getText().toString());
+		//markdownView.loadMarkdown(markdownTest,"file:///android_asset/markdown_css_themes/foghorn.css");
+		markdownView.loadMarkdown(markdownEditText.getText().toString(), "file:///android_asset/markdown_css_themes/foghorn.css");
 	}
 }

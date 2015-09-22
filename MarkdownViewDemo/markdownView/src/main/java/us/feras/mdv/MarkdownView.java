@@ -103,6 +103,7 @@ public class MarkdownView extends WebView {
 				this.cssFileUrl = params[1];
 				if (url.startsWith("file:///android_asset")) {
 					txt = readFileFromAsset(url);
+					System.out.println(txt);
 				} else {
 					txt = HttpHelper.get(url).getResponseMessage();
 				}

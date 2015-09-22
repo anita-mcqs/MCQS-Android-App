@@ -2,17 +2,10 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\david-MCQS\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
-        jumboMode="false"
-        revision="23.0.1"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="C:\Users\david-MCQS\Documents\Android\MCQS-Android-App\MarkdownViewDemo\markdownViewDemo\build\intermediates\pre-dexed\debug\support-v4-18.0.0-c01f516323a499e68b69a0abe4ea275750717879.jar" />
-    </item>
-    <item
         jar="C:\Users\david-MCQS\Documents\Android\MCQS-Android-App\MarkdownViewDemo\markdownViewDemo\build\intermediates\exploded-aar\MarkdownViewDemo\markdownView\unspecified\jars\classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="2f08dcb0cc9ca484789a6b3fcfe5dbb7fc7de5c6">
+        sha1="4638b87d6f23ab0475be4b911bc00bd2051fad40">
         <dex dex="C:\Users\david-MCQS\Documents\Android\MCQS-Android-App\MarkdownViewDemo\markdownViewDemo\build\intermediates\pre-dexed\debug\classes-147513d8c0e7565d8ed642cb2ae3e05fc1f4febc.jar" />
     </item>
 

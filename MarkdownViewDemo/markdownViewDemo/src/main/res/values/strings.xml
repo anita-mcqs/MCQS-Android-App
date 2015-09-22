@@ -3,8 +3,14 @@
 
     <string name="md"></string>
     <string name="app_name">MarkdownView Demo</string>
-    <string name="md_sample_data">## This is a demo of MarkdownView \n * * * \n### Edit the text and hit update to see the changes on the view.</string>
+    <string name="md_sample_data">test<code>code</code>asasa<pre>Pre Tag</pre>dsadsd`laskdjaskldj`\n\n    test\n## This is a demo of MarkdownView \n * * * \n### Edit the text and hit update to see the changes on the view.</string>
 
+
+   <!--  <string name="markdown_test">test\n<code>code</code>asasa\n<pre>Pre Tag</pre>This is *italic* and also _italic_. This is **bold** and also __bold__.\n Line of code \n***\nAnother Line\n\nLast Line\n* * *\nend\n
+    >blockquote\n>>Nested text\n>###quote with header\n>\n> * list with quote\n> * Item Two\n\n# Header 1\n## Header 2\n### Header 3\n#### Header 4\n##### Header 5\n###### Header 6\n
+    Links\n\nLink to Google [Google](http://google.com/).\nLink with title [Google](http://google.com/ "Google").\n
+    \nInput:\ntest `indexOf()` array\n
+    or use <code>System.out.println()</code> to print to console\n\n<pre>pretagvdxvdxv</pre>\n    pretaglskfdslkdfjse</string>-->
     <string-array name="md_themes">
         <item>foghorn</item>
         <item>alt</item>
