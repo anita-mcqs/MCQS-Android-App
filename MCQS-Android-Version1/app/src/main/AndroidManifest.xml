@@ -31,6 +31,10 @@
             android:name=".ChooseExam"
             android:label="@string/title_activity_choose_exam" >
         </activity>
+        <activity
+            android:name=".DownloadExam"
+            android:label="@string/title_activity_single_view" >
+        </activity>
     </application>
 
 </manifest>
